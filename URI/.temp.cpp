@@ -6,6 +6,7 @@
 #define mset(x, v) memset(x, v, sizeof x)
 #define MOD 1e9+7
 #define MAX 10007
+#define OO INT_MAX
 using namespace std;
 typedef long long ll;
 typedef vector<int> vi;
