@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <climits>
+#include <vector>
 #define all(x) x.begin(), x.end()
 #define pb push_back
 #define mp make_pair
@@ -9,12 +13,11 @@
 #define OO INT_MAX
 using namespace std;
 typedef long long ll;
-typedef vector<int> vi;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
 int n, aux, tot;
 int vpd[MAX][10007], vpd2[MAX];
-vi cars;
+vector<int> cars;
 
 int pd(int k, int l, int r){
     if(l>tot) return -1;
@@ -27,19 +30,19 @@ int pd(int k, int l, int r){
     return vpd[k][l];
 }
 
-void pd2(int k, int x, int l){
-    if(x<0) return;
+void pd2(int k, int l, int r){
+    if(k==n) return;
 
     int res1, res2;
-    res1 = vpd[k][l];
-    res2 = vpd[k][l+cars[k-1]];
-    if(res1>res2){
-        vpd2[k-1] = 1;
-        return pd2(k+1, x-1, l);
+    res1 = pd(k+1, l+cars[k], r);
+    res2 = pd(k+1, l, r+cars[k]);
+    if(res2>res1){
+        vpd2[k] = 1;
+        return pd2(k+1, l, r+cars[k]);
     }
     else{
-        vpd2[k-1] = 0;
-        return pd2(k+1, x-1, l+cars[k]);
+        vpd2[k] = 0;
+        return pd2(k+1, l+cars[k], r);
     }
 }
 
@@ -55,7 +58,7 @@ int main(){
     }
     int ans;
     ans = pd(0, 0, 0);
-    pd2(1, ans-1, 0);
+    pd2(0, 0, 0);
     cout << ans << "\n";
     f(ans){
         if(vpd2[i]==0)
