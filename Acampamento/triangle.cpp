@@ -1,40 +1,42 @@
-#include <stdio.h>
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <climits>
+#define all(x) x.begin(), x.end()
+#define pb push_back
+#define mp make_pair
+#define f(x) for(int i=0; i<x; i++)
+#define mset(x, v) memset(x, v, sizeof x)
+#define MOD 1e9+7
+#define MAX 10007
+using namespace std;
+typedef long long ll;
+//REMEMBER TO DECLARE GLOBAL VARIABLES
 
-int estados[110][110][110];
-int m[110][110];
+int triangle[101][101];
+int vpd[101][101];
+int n;
 
-int max(int a, int b) { return a > b ? a : b; }
+int pd(int row, int col){
+    if(col > row) return -INT_MAX;
+    if(row > n) return 0;
+    if(vpd[row][col] != -1) return vpd[row][col];
 
-int r(int a, int am, int i) {
-    int aux1, aux2;
-    
-    if (estados[a][am][i] != -1) return estados[a][am][i];
-    else if (a == am) return m[a][i];
-    else {
-        aux1 = r(a+1, am, i);
-        aux2 = r(a+1, am, i+1);
+    vpd[row][col] = triangle[row][col] + max(pd(row+1, col), pd(row+1, col+1));
 
-        estados[a][am][i] = max(aux1, aux2) + m[a][i];
-        
-        return estados[a][am][i];
-    }
+    return vpd[row][col];
 }
 
-int main() {
-    int n, i, j, k;
-
-    scanf("%d", &n);
-    for(i = 0; i < 110; i++) {
-        for(j = 0; j < 110; j++) {
-            for (k = 0; k < 110; k++) {
-                estados[i][j][k] = -1;
-            }
-
-            if (j <= i && i < n) scanf("%d", &m[i][j]);
-        }
+int main(){
+    std::ios::sync_with_stdio(false);
+    cin >> n;
+    mset(vpd, -1);
+    for(int i=0; i<n; i++){
+        for(int j=0; j<=i; j++)
+            cin >> triangle[i][j];
     }
 
-    printf("%d\n", r(0, n-1, 0));
+    int ans = pd(0, 0);
 
-    return 0;
+    cout << ans << "\n";
 }
