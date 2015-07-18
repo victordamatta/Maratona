@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <iostream>
 #define all(x) x.begin(), x.end()
 #define pb push_back
 #define mp make_pair
@@ -63,7 +63,9 @@ int main(){
         else if(n%2==0){
             matmult(mat, n/2-1);
             ans = 2*mat[0][0] + 2*mat[0][1];
+            ans %= MOD;
             ans += 1ll<<(n/2);
+            ans %= MOD;
         }
         else{
             matmult(mat, n/2);
@@ -77,6 +79,7 @@ int main(){
             }
             */
             ans = 2*mat[0][0] + 2*mat[0][1];
+            ans %= MOD;
         }
         cout << ans << "\n";
     }
