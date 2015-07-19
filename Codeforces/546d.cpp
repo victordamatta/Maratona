@@ -6,17 +6,17 @@ typedef int num;
 
 long int n, a, b, ans, cont, t;
 set<int> primes;
-vector<bool> numbers(5010, true);
+vector<bool> numbers(5000010, true);
 
 int main(){
     std::ios::sync_with_stdio(false);
     primes.insert(2);
-    for(int i=3; i<5010; i+=2){
+    for(int i=3; i<5000010; i+=2){
         primes.insert(i);
     }
     for(int i = 2; i<5000; i++){
         if(numbers[i]){
-            for(int j = i*i; j<5000; j+=i){
+            for(int j = i*i; j<=5000000; j+=i){
                 numbers[j] = false;
                 primes.erase(j);
             }
