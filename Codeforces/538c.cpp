@@ -1,60 +1,53 @@
-#include <bits/stdc++.h>
-#define all(x) x.begin(), x.end()
-#define pb push_back
-#define mp make_pair
-#define f(x) for(int i=0; i<x; i++)
-#define mset(x, v) memset(x, v, sizeof x)
-#define MOD 1e9+7
-#define MAX 10007
-#define OO INT_MAX
-using namespace std;
-typedef long long ll;
-typedef vector<int> vi;
-//REMEMBER TO DECLARE GLOBAL VARIABLES
+#include <stdio.h>
+#include <math.h>
 
-set< pair<int, int> > s;
-int n, m;
+typedef struct {
+    int dia, altura;
+} pair;
 
-int main(){
-    std::ios::sync_with_stdio(false);
-    cin >> n >> m;
-    int aux, aux2;
-    f(m){
-        cin >> aux >> aux2;
-        s.insert(mp(aux, aux2));
-    }
-    set<pair<int, int> >::iterator it = s.begin();
-    int max, cur, prev, dcur, dprev, dif, ddif;
-    dprev = (*it).first;
-    prev = (*it).second;
-    max = prev + dprev - 1;
-    it++;
-    while(it != s.end()){
-        cur = (*it).second;
-        dcur = (*it).first;
-        dif = abs(cur-prev);
-        ddif = dcur - dprev;
-        if(dif>ddif){
-            cout << "IMPOSSIBLE\n";
+int abs(int a) { return a < 0 ? -a : a; }
+int mmax(int a, int b) { return a > b ? a : b; }
+
+int main() {
+    int n, m, t = 0, max = 0, aux, b1, b2, a1, a2;
+    double x;
+    pair v[10010];
+
+    scanf("%d %d", &n, &m);
+
+    while (t < m) {
+        scanf("%d %d", &v[t].dia, &v[t].altura);
+
+        if (t > 0 && abs((v[t].altura - v[t-1].altura)/(v[t].dia - v[t-1].dia)) > 1) {
+            printf("IMPOSSIBLE\n");
             return 0;
+
+        } else if (t > 0) {
+            a1 = v[t-1].altura;
+            a2 = v[t].altura;
+            b1 = v[t-1].dia;
+            b2 = v[t].dia;
+
+            if (a1 < a2) {
+                a1 += (a2 - a1);
+                b1 += (a2 - a1);
+            
+            } else if (a2 > a1) {
+                a2 += (a1 - a2);
+                b1 += (a1 - a2);
+
+            }
+
+            if (b2 == b1) aux = a1;
+            else aux = a1 + (b2-b1)/2;
+
+            if (aux > max) max = aux;
         }
-        else ddif -= dif;
-        if(ddif%2==1){
-            ddif--;
-        }
-        if(cur > prev){
-            aux = cur+ddif/2;
-            if(aux>max) max = aux;
-        }
-        else{
-            aux = prev+ddif/2;
-            if(aux>max) max = aux;
-        }
-        prev = cur;
-        dprev = dcur;
-        it++;
+
+        t++;
     }
-    aux = prev + n-dprev;
-    if(aux>max) max = aux;
-    cout << max << "\n";
+
+    printf("%d\n", max);
+
+    return 0;
 }
