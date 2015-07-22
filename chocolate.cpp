@@ -30,6 +30,7 @@ int gt;
 int pd(int n, int p, int t){
     if(n==0 && t==gt) return 0;
     if(n==0) return 1;
+    if(n<=m) return pd(0, n, (t+1)%2);
     if(vpd[n][t]>=0) return vpd[n][t];
 
     int ans = 1;
