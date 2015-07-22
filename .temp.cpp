@@ -18,7 +18,7 @@
 #define si set<int>
 #define sit set<int>::iterator
 #define MOD 1000000007
-#define OO INT_MAX
+#define OO 0x3f3f3f
 using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES

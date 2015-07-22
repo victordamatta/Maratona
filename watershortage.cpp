@@ -24,9 +24,9 @@ typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
 struct box{
-    float s;
-    float e;
-    float c;
+    double s;
+    double e;
+    double c;
 } boxs[10007];
 
 bool comp(box a, box b){
@@ -42,7 +42,7 @@ int main(){
     cin >> t;
     while(t--){
         int n;
-        float v, aux, ans;
+        double v, aux, ans;
         cin >> n;
         f(n, i){
             cin >> boxs[i].s;
