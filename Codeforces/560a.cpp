@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 /*
 #include <iostream>
@@ -25,4 +26,12 @@ typedef long long ll;
 
 int main(){
     std::ios::sync_with_stdio(false);
+    int ans = 1;
+    int n, aux;
+    cin >> n;
+    f(n, i){
+        cin >> aux;
+        if(aux==1) ans = -1;
+    }
+    cout << ans << "\n";
 }
