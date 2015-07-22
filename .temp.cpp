@@ -16,8 +16,7 @@
 #define ms(x, v) memset(x, v, sizeof x)
 #define vi vector<int>
 #define si set<int>
-#define vit vector<int>::iterator
-#define sit set<int>::iterator
+#define :it ::iterator
 #define MOD 1000000007
 #define OO INT_MAX
 using namespace std;
