@@ -66,6 +66,11 @@ int main(){
                         v -= aux;
                     }
                 }
+                else if(boxs[i+1].s == boxs[i].s){
+                    boxs[i].c += boxs[i+1].c;
+                    boxs[i+1].s = boxs[i].e;
+                    i--;
+                }
                 else{
                     aux = boxs[i].c*(boxs[i+1].s-boxs[i].s);
                     if(v <= aux){
