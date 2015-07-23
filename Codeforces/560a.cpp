@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 /*
 #include <iostream>
@@ -18,11 +19,19 @@
 #define si set<int>
 #define sit set<int>::iterator
 #define MOD 1000000007
-#define OO 0x3f3f3f
+#define OO INT_MAX
 using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
 int main(){
     std::ios::sync_with_stdio(false);
+    int ans = 1;
+    int n, aux;
+    cin >> n;
+    f(n, i){
+        cin >> aux;
+        if(aux==1) ans = -1;
+    }
+    cout << ans << "\n";
 }

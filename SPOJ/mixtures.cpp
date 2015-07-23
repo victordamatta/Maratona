@@ -23,19 +23,39 @@ using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
-ll n;
-int vet[107], vpd[107][107];;
+int n, vet[107], mix[107][107];
+int vpd[107][107];
 
 int pd(int l, int r){
+    if(l==r){
+        mix[l][r] = vet[l];
+        return 0;
+    }
+    if(vpd[l][r]!=-1) return vpd[l][r];
+
+    int aux, ans=INT_MAX;
+    for(int k=l; k<r; k++){
+        aux = pd(l, k) + pd(k+1, r) + mix[l][k]*mix[k+1][r];
+        if(aux < ans){
+            ans = aux;
+            mix[l][r] = (mix[l][k] + mix[k+1][r])%100;
+        }
+    }
+
+    vpd[l][r] = ans;
+    return ans;
 }
 
 int main(){
     std::ios::sync_with_stdio(false);
-    while(cin.peek() != EOF){
-        ll aux;
+    while(cin.peek()!=EOF){
         cin >> n;
+        ms(vpd, -1);
         f(n, i){
             cin >> vet[i];
         }
+        int ans = pd(0, n-1);
+        cout << ans << "\n";
+        cin.get();
     }
 }

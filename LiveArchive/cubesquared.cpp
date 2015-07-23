@@ -24,32 +24,40 @@ using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
-int divs[1000007];
-int mat[1000007][20];
+int sizes[500000];
+int vpd[200][500000];
+int size;
+
+int pd(int k, int n){
+    if(n==0) return 0;
+    if(n < 0) return INT_MAX - 500000;
+    if(k==size) return INT_MAX - 500000;
+    if(vpd[k][n] != -1) return vpd[k][n];
+
+    vpd[k][n] = min(1+pd(0, n-sizes[k]), pd(k+1, n));
+
+    return vpd[k][n];
+}
 
 int main(){
     std::ios::sync_with_stdio(false);
-    int t, n, a, b;
-    ms(divs, 0);
-    ms(mat, 0);
-    for(int i=2; i<=1000; i++){
-        if(divs[i]>0) continue;
-        for(int j=i*i; j<=1000000; j+=i){
-            divs[j]++;
+    int n;
+    size = 1;
+    int cont=2, pir=1, cube;
+    sizes[0] = 1;
+    while(pir <= 400000){
+        cube = cont*cont*cont;
+        if(cube <=400000){
+            sizes[size++] = cube;
         }
+        pir += cont*cont;
+        sizes[size++] = pir;
+        cont++;
     }
-    for(int i=2; i<=1000000; i++){
-        mat[i][divs[i]] = 1;
-    }
-    for(int i = 0; i<20; i++){
-        for(int j=3; j<=1000000; j++){
-            mat[j][i] += mat[j-1][i];
-        }
-    }
-    cin >> t;
-    while(t--){
-        cin >> a >> b >> n;
-        int ans = mat[n][b] - mat[n][a-1];
+    size--;
+    ms(vpd, -1);
+    while(cin >> n, n!=-1){
+        int ans = pd(0, n);
         cout << ans << "\n";
     }
 }
