@@ -43,7 +43,7 @@ int main(){
     while(t--){
         if(ok) printf("\n");
         int n;
-        double v, aux, ans;
+        double v, aux, ans, aux2;
         scanf("%d", &n);
         f(n, i){
             scanf("%lf", &boxs[i].s);
@@ -57,7 +57,19 @@ int main(){
         sort(boxs, boxs+n, comp);
         f(n, i){
             if(i!=n-1){
-                if(boxs[i+1].s >= boxs[i].e){
+                if(boxs[i+1].s < boxs[i].s){
+                    box tmp;
+                    tmp.s = boxs[i].s;
+                    tmp.e = boxs[i].e;
+                    tmp.c = boxs[i].c;
+                    boxs[i].s = boxs[i+1].s;
+                    boxs[i].e = boxs[i+1].e;
+                    boxs[i].c = boxs[i+1].c;
+                    boxs[i+1].s = tmp.s;
+                    boxs[i+1].e = tmp.e;
+                    boxs[i+1].c = tmp.c;
+                }
+                else if(boxs[i+1].s >= boxs[i].e){
                     aux = boxs[i].c*(boxs[i].e-boxs[i].s);
                     if(v <= aux){
                         ans = v/boxs[i].c + boxs[i].s;
@@ -68,9 +80,19 @@ int main(){
                     }
                 }
                 else if(boxs[i+1].s == boxs[i].s){
-                    boxs[i].c += boxs[i+1].c;
-                    boxs[i+1].s = boxs[i].e;
-                    aux = boxs[i].c*(boxs[i].e-boxs[i].s);
+                    if(boxs[i+1].e > boxs[i].e){
+                        boxs[i].c += boxs[i+1].c;
+                        boxs[i+1].s = boxs[i].e;
+                    }
+                    else{
+                        aux2 = boxs[i].c;
+                        boxs[i].c += boxs[i+1].c;
+                        aux = boxs[i].e;
+                        boxs[i].e = boxs[i+1].e;
+                        boxs[i+1].e = aux;
+                        boxs[i+1].s = boxs[i].e;
+                        boxs[i+1].c = aux2;
+                    }
                     i--;
                 }
                 else{
