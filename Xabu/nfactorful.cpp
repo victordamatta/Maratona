@@ -25,31 +25,35 @@ typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
 int divs[1000007];
-int mat[1000007][20];
+int mat[1000007][15];
 
 int main(){
     std::ios::sync_with_stdio(false);
     int t, n, a, b;
     ms(divs, 0);
     ms(mat, 0);
-    for(int i=2; i<=1000; i++){
+    for(ll i=2; i<=1000000; i++){
         if(divs[i]>0) continue;
-        for(int j=i*i; j<=1000000; j+=i){
+        for(ll j=i; j<=1000000; j+=i){
             divs[j]++;
         }
     }
     for(int i=2; i<=1000000; i++){
         mat[i][divs[i]] = 1;
     }
-    for(int i = 0; i<20; i++){
-        for(int j=3; j<=1000000; j++){
+    for(int i = 0; i<11; i++){
+        for(int j=2; j<=1000000; j++){
             mat[j][i] += mat[j-1][i];
         }
     }
     cin >> t;
     while(t--){
         cin >> a >> b >> n;
-        int ans = mat[n][b] - mat[n][a-1];
-        cout << ans << "\n";
+        if(n==0) cout << "1\n";
+        else{
+            a = max(a-1, 1);
+            int ans = mat[b][n] - mat[a][n];
+            cout << ans << "\n";
+        }
     }
 }

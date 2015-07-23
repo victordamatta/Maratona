@@ -37,22 +37,23 @@ bool comp(box a, box b){
 }
 
 int main(){
-    std::ios::sync_with_stdio(false);
     int t;
-    cin >> t;
+    int ok = 0;
+    scanf("%d", &t);
     while(t--){
+        if(ok) printf("\n");
         int n;
         double v, aux, ans;
-        cin >> n;
+        scanf("%d", &n);
         f(n, i){
-            cin >> boxs[i].s;
-            cin >> boxs[i].e;
+            scanf("%lf", &boxs[i].s);
+            scanf("%lf", &boxs[i].e);
             boxs[i].e += boxs[i].s;
-            cin >> aux;
-            cin >> boxs[i].c;
+            scanf("%lf", &aux);
+            scanf("%lf", &boxs[i].c);
             boxs[i].c *= aux;
         }
-        cin >> v;
+        scanf("%lf", &v);
         sort(boxs, boxs+n, comp);
         f(n, i){
             if(i!=n-1){
@@ -69,6 +70,7 @@ int main(){
                 else if(boxs[i+1].s == boxs[i].s){
                     boxs[i].c += boxs[i+1].c;
                     boxs[i+1].s = boxs[i].e;
+                    aux = boxs[i].c*(boxs[i].e-boxs[i].s);
                     i--;
                 }
                 else{
@@ -79,10 +81,19 @@ int main(){
                     }
                     else{
                         v -= aux;
-                        boxs[i].c += boxs[i+1].c;
                         boxs[i].s = boxs[i+1].s;
-                        boxs[i+1].s = boxs[i].e;
-                        i--;
+                        if(boxs[i+1].e >= boxs[i].e){
+                            boxs[i].c += boxs[i+1].c;
+                            boxs[i+1].s = boxs[i].e;
+                            i--;
+                        }
+                        else{
+                            boxs[i+1].s = boxs[i+1].e;
+                            boxs[i+1].e = boxs[i].e;
+                            boxs[i+1].c = boxs[i].c;
+                            boxs[i].e = boxs[i+1].e;
+                            boxs[i].c += boxs[i+1].c;
+                        }
                     }
                 }
             }
@@ -98,8 +109,9 @@ int main(){
             }
         }
         if(ans==-1)
-            cout << "OVERFLOW\n";
+            printf("OVERFLOW\n");
         else
-            cout << fixed << setprecision(2) << ans << "\n";
+            printf("%.2lf\n", ans);
+        ok = 1;
     }
 }
