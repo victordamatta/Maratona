@@ -18,122 +18,73 @@
 #define si set<int>
 #define sit set<int>::iterator
 #define MOD 1000000007
-#define OO INT_MAX
+#define OO 0x3f3f3f
 using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
 struct box{
-    double s;
-    double e;
-    double c;
-} boxs[10007];
+    float s;
+    float e;
+    float c;
+};
 
 bool comp(box a, box b){
     if(a.s != b.s){
-        return (a.s < b.s);
+        return a.s < b.s;
     }
-    return (a.e < b.e);
+    return a.e < b.e;
 }
 
 int main(){
+    std::ios::sync_with_stdio(false);
     int t;
-    int ok = 0;
-    scanf("%d", &t);
+    cin >> t;
     while(t--){
-        if(ok) printf("\n");
+        vector<box> v;
         int n;
-        double v, aux, ans, aux2;
-        scanf("%d", &n);
+        cin >> n;
         f(n, i){
-            scanf("%lf", &boxs[i].s);
-            scanf("%lf", &boxs[i].e);
-            boxs[i].e += boxs[i].s;
-            scanf("%lf", &aux);
-            scanf("%lf", &boxs[i].c);
-            boxs[i].c *= aux;
+            float aux, aux2;
+            box tmp;
+            cin >> tmp.s;
+            cin >> aux;
+            tmp.e = tmp.s + aux;
+            cin >> aux >> aux2;
+            tmp.c = aux*aux2;
+            v.pb(tmp);
         }
-        scanf("%lf", &v);
-        sort(boxs, boxs+n, comp);
-        f(n, i){
-            if(i!=n-1){
-                if(boxs[i+1].s < boxs[i].s){
-                    box tmp;
-                    tmp.s = boxs[i].s;
-                    tmp.e = boxs[i].e;
-                    tmp.c = boxs[i].c;
-                    boxs[i].s = boxs[i+1].s;
-                    boxs[i].e = boxs[i+1].e;
-                    boxs[i].c = boxs[i+1].c;
-                    boxs[i+1].s = tmp.s;
-                    boxs[i+1].e = tmp.e;
-                    boxs[i+1].c = tmp.c;
-                }
-                else if(boxs[i+1].s >= boxs[i].e){
-                    aux = boxs[i].c*(boxs[i].e-boxs[i].s);
-                    if(v <= aux){
-                        ans = v/boxs[i].c + boxs[i].s;
-                        break;
-                    }
-                    else{
-                        v -= aux;
-                    }
-                }
-                else if(boxs[i+1].s == boxs[i].s){
-                    if(boxs[i+1].e > boxs[i].e){
-                        boxs[i].c += boxs[i+1].c;
-                        boxs[i+1].s = boxs[i].e;
-                    }
-                    else{
-                        aux2 = boxs[i].c;
-                        boxs[i].c += boxs[i+1].c;
-                        aux = boxs[i].e;
-                        boxs[i].e = boxs[i+1].e;
-                        boxs[i+1].e = aux;
-                        boxs[i+1].s = boxs[i].e;
-                        boxs[i+1].c = aux2;
-                    }
-                    i--;
-                }
-                else{
-                    aux = boxs[i].c*(boxs[i+1].s-boxs[i].s);
-                    if(v <= aux){
-                        ans = v/boxs[i].c + boxs[i].s;
-                        break;
-                    }
-                    else{
-                        v -= aux;
-                        boxs[i].s = boxs[i+1].s;
-                        if(boxs[i+1].e >= boxs[i].e){
-                            boxs[i].c += boxs[i+1].c;
-                            boxs[i+1].s = boxs[i].e;
-                            i--;
-                        }
-                        else{
-                            boxs[i+1].s = boxs[i+1].e;
-                            boxs[i+1].e = boxs[i].e;
-                            boxs[i+1].c = boxs[i].c;
-                            boxs[i].e = boxs[i+1].e;
-                            boxs[i].c += boxs[i+1].c;
-                        }
-                    }
-                }
-            }
-            else{
-                aux = boxs[i].c*(boxs[i].e-boxs[i].s);
-                if(v <= aux){
-                    ans = v/boxs[i].c + boxs[i].s;
+        float vol, ans, aux;
+        cin >> vol;
+        sort(all(v), comp);
+        int x = v.size()-1;
+        f(x, i){
+            if(v[i+1].s >= v[i].e) continue;
+            //box separation wrong
+        }
+        sort(all(v), comp);
+        f(v.size(), i){
+            cout << v[i].s << " " << v[i].e << " " << v[i].c << endl;
+            if(i!=v.size()-1){
+                aux = v[i].c*(v[i].e-v[i].s);
+                if(vol <= aux){
+                    ans = v[i].s + vol/v[i].c;
                     break;
                 }
-                else{
-                    ans = -1;
+                else vol -= aux;
+            }
+            else{
+                aux = v[i].c*(v[i].e-v[i].s);
+                if(vol <= aux){
+                    ans = v[i].s + vol/v[i].c;
+                    break;
                 }
+                else ans = -1;
             }
         }
-        if(ans==-1)
-            printf("OVERFLOW\n");
+        if(ans == -1)
+            cout << "OVERFLOW\n";
         else
-            printf("%.2lf\n", ans);
-        ok = 1;
+            cout << ans << "\n";
     }
 }

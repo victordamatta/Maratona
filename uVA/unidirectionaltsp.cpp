@@ -14,7 +14,7 @@ ll choices[107];
 
 ll mod(ll a, ll b){
     if(a>=0) return a%b;
-    else return a%b+b;
+    else return mod(a+b, b);
 }
 
 ll pd(ll i, ll j){
@@ -71,9 +71,16 @@ int main(){
                 cin >> mat[i][j];
             }
         }
-        ll ans = pd(0, 0);
-        pd2(0, 0);
-        cout << "1";
+        ll ans=100*OO, ansi, aux;
+        for(int i=0; i<n; i++){
+            aux = pd(i, 0);
+            if(aux < ans){
+                ans = aux;
+                ansi = i;
+            }
+        }
+        pd2(ansi, 0);
+        cout << ansi+1;
         f(m-1, i){
             cout << " " << choices[i]+1;
         }

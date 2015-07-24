@@ -51,8 +51,8 @@ int main(){
         cin >> a >> b >> n;
         if(n==0) cout << "1\n";
         else{
-            a = max(a-1, 1);
             int ans = mat[b][n] - mat[a][n];
+            if(mat[a][n]>mat[a-1][n]) ans++;
             cout << ans << "\n";
         }
     }
