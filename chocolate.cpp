@@ -18,35 +18,33 @@
 #define si set<int>
 #define sit set<int>::iterator
 #define MOD 1000000007
-#define OO INT_MAX
+#define OO 0x3f3f3f
 using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
-int n, m; 
-int vpd[100007][1007];
+int n, m;
+int vpd[1000007];
 
-int pd(int s, int p){
-    if(s==0) return 0;
-    if(s<=m && s!=p) return 1;
-    if(vpd[s][p]!=-1) return vpd[s][p];
+int pd(int n){
+    if(n==0) return 0;
+    if(n<=m) return n;
+    if(vpd[n]!=-1) return vpd[n];
 
-    int mi = min(s, m), ans = 1;
-    for(int i=1; i<=mi; i++){
-        if(i!=p){
-            ans *= pd(s-i, i);
-        }
+    int aux, wins=0, k=0;
+    for(int i=1; i<=m; i++){
+        aux = pd(n-i);
+        if(aux == 0 || aux==i) k = i;
     }
-    if(ans == 0) vpd[s][p] = 1;
-    else vpd[s][p] = 0;
+    if(wins) vpd[n] = k;
+    else vpd[n] = 0;
 
-    return vpd[s][p];
+    return vpd[n];
 }
 
 int main(){
     std::ios::sync_with_stdio(false);
-    ms(vpd, -1);
     cin >> n >> m;
-    int ans = pd(n, 0);
+    int ans = pd(n);
     cout << ans << endl;
 }

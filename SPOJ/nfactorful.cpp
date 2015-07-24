@@ -18,41 +18,41 @@
 #define si set<int>
 #define vit vector<int>::iterator
 #define sit set<int>::iterator
-#define MOD 1000000007
-#define OO INT_MAX
+#define OO 1000000
 using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
-int divs[1000007];
-int mat[1000007][15];
+int divs[OO + 7];
+int mat[15][OO + 7];
 
 int main(){
     std::ios::sync_with_stdio(false);
     int t, n, a, b;
     ms(divs, 0);
     ms(mat, 0);
-    for(ll i=2; i<=1000000; i++){
+    for(ll i=2; i<=OO; i++){
         if(divs[i]>0) continue;
-        for(ll j=i; j<=1000000; j+=i){
+        for(ll j=i; j<=OO; j+=i){
             divs[j]++;
         }
     }
-    for(int i=2; i<=1000000; i++){
-        mat[i][divs[i]] = 1;
+    for(int i=2; i<=OO; i++){
+        mat[divs[i]][i] = 1;
     }
     for(int i = 0; i<11; i++){
-        for(int j=2; j<=1000000; j++){
-            mat[j][i] += mat[j-1][i];
+        for(int j=2; j<=OO; j++){
+            mat[i][j] += mat[i][j-1];
         }
     }
     cin >> t;
     while(t--){
         cin >> a >> b >> n;
-        if(n==0) cout << "1\n";
+        if(n==0 && a==1) cout << "1\n";
+        else if(n==0) cout << "0\n";
         else{
-            int ans = mat[b][n] - mat[a][n];
-            if(mat[a][n]>mat[a-1][n]) ans++;
+            a = max(a-1, 0);
+            int ans = mat[n][b] - mat[n][a];
             cout << ans << "\n";
         }
     }
