@@ -41,5 +41,6 @@ int main(){
 			b--;
 			printf("%d\n", tmin(1, 0, n-1, a, b));
 		}
+        cout << "\n";
 	}
 }
