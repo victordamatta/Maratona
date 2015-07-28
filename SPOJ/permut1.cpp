@@ -23,31 +23,33 @@ using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
-int n, m;
-int vpd[100007][1007];
+int m, j;
+int vpd[20][105];
 
 int pd(int n, int k){
-    if(n==0) return 0;
+    if(k>j) return 0;
+    if(k==j) return 1;
+    if(n>m) return 0;
     if(vpd[n][k]!=-1) return vpd[n][k];
 
-    int aux=1, l = min(n, m);
-    for(int i=1; i<=l; i++){
-        if(i!=k)
-            aux *= pd(n-i, i);
+    int ans = 0;
+    for(int i=0; i<n; i++){
+        ans += pd(n+1, k+i);
     }
-    if(aux) vpd[n][k] = 0;
-    else vpd[n][k] = 1;
+    
+    vpd[n][k] = ans;
 
-    return vpd[n][k];
+    return ans;
 }
 
 int main(){
     std::ios::sync_with_stdio(false);
-    cin >> n >> m;
-    ms(vpd, -1);
-    int ans = pd(n, 0);
-    if(ans)
-        cout << "Paula" << endl;
-    else
-        cout << "Carlos" << endl;
+    int t;
+    cin >> t;
+    while(t--){
+        cin >> m >> j;
+        ms(vpd, -1);
+        int ans = pd(1, 0);
+        cout << ans << "\n";
+    }
 }
