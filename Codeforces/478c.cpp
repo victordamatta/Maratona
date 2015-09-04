@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 /*
 #include <iostream>
@@ -21,35 +22,13 @@
 #define OO 0x3f3f3f
 using namespace std;
 typedef long long ll;
-typedef pair<int, int> pr;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
-bool compx(pr a, pr b){
-    return a.first < b.first;
-}
-
-bool compy(pr a, pr b){
-    return a.second < b.second;
-}
-
 int main(){
+    ll v[3];
     std::ios::sync_with_stdio(false);
-    vector<pair<int, int > > vx;
-    vector<pair<int, int > > vy;
-    int n;
-    cin >> n;
-    f(n, i){
-        pair<int, int> p;
-        int aux1, aux2;
-        cin >> aux1 >> aux2;
-        p.first = aux1;
-        p.second = aux2;
-        vx.pb(p);
-        vy.pb(p);
-    }
-    sort(all(vx), compx);
-    sort(all(vy), compy);
-    int ans;
-    f(vx.size(), i){
-    }
+    cin >> v[0] >> v[1] >> v[2];
+    sort(v,v+3);
+    v[2] = min(v[2],2*(v[0]+v[1]));
+    cout << (v[0]+v[1]+v[2])/3 << "\n";
 }
