@@ -1,3 +1,4 @@
+--PD funcional?
 main = interact $ show' . f . map read . words
 
 show' :: Bool -> [Char]
