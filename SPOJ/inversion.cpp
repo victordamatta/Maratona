@@ -12,49 +12,45 @@
 #define all(x) x.begin(), x.end()
 #define pb push_back
 #define mp make_pair
-#define f(x, let) for(int let=0; let<x; let++)
+#define f(x, let) for(ll let=0; let<x; let++)
 #define ms(x, v) memset(x, v, sizeof x)
-#define vi vector<int>
-#define si set<int>
-#define sit set<int>::iterator
+#define vi vector<ll>
+#define si set<ll>
+#define sit set<ll>::iterator
 #define MOD 1000000007
 #define OO 0x3f3f3f
 using namespace std;
 typedef long long ll;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
-int n, bit[10000007], in[1000000];
+ll n, bit[10000007];
 
-int query (int k) {
-    int sum = 0;
-    for (int i = k; i>0; i-=i&-i) {
+ll query (int k) {
+    ll sum = 0;
+    for (ll i = k; i>0; i -= i&-i) {
         sum += bit[i];
     }
     return sum;
 }
 
-void update (int k) {
-    for (int i = k; i <= n; i += i&-i) {
+void update (ll k) {
+    for (ll i = k; i <= 10000000; i += i&-i) {
         bit[i]++;
     }
 }
 
 int main(){
     std::ios::sync_with_stdio(false);
-    int t;
+    ll t;
     cin >> t;
     while (t--) {
         ms (bit, 0);
-        int aux, maxi = 0;
+        ll aux, ans = 0;
         cin >> n;
         f(n, i) {
-            cin >> in[i];
-            maxi = max(maxi, in[i]);
-            update (in[i]);
-        }
-        int ans = 0;
-        for (int i = n - 1; i>=0; i--) {
-            ans += query (maxi) - query (in[i]);
+            cin >> aux;
+            update (aux);
+            ans += (i + 1) - query (aux);
         }
         cout << ans << "\n";
     }
