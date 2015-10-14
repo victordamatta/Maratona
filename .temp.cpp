@@ -12,15 +12,18 @@
 #define all(x) x.begin(), x.end()
 #define pb push_back
 #define mp make_pair
+#define fst first
+#define scd second
 #define f(x, let) for(int let=0; let<x; let++)
 #define ms(x, v) memset(x, v, sizeof x)
-#define vi vector<int>
-#define si set<int>
-#define sit set<int>::iterator
-#define MOD 1000000007
-#define OO 0x3f3f3f
 using namespace std;
 typedef long long ll;
+typedef pair<int, int> pi;
+typedef vector<int> pi;
+typedef set<int> pi;
+typedef set<int>::iterator sit;
+const int MOD = 1000000007;
+const int OO = 0x3f3f3f;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
 
 int main(){
