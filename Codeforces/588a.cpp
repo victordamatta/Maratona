@@ -28,4 +28,12 @@ const int OO = 0x3f3f3f;
 
 int main(){
     std::ios::sync_with_stdio(false);
+    int n, ans = 0, pri = 300, aux, qua;
+    cin >> n;
+    f(n, i){
+        cin >> qua >> aux;
+        pri = min(pri, aux);
+        ans += qua*pri;
+    }
+    cout << ans << "\n";
 }

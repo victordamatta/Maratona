@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 /*
 #include <iostream>
@@ -28,4 +29,6 @@ const int OO = 0x3f3f3f;
 
 int main(){
     std::ios::sync_with_stdio(false);
+    cout << 1000000 << "\n";
+    f(1000000, i) cout << 1000000 << "\n";
 }
