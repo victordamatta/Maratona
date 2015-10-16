@@ -28,4 +28,20 @@ const int OO = 0x3f3f3f;
 
 int main(){
     std::ios::sync_with_stdio(false);
+    ll n, ans = 1, div = 2;
+    cin >> n;
+    while(n != 1){
+        if(div*div > n){
+            ans *= n;
+            break;
+        }
+        if(n%div==0){
+            ans *= div;
+            while(n%div==0){
+                n /= div;
+            }
+        }
+        div++;
+    }
+    cout << ans << "\n";
 }

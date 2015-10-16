@@ -25,7 +25,29 @@ typedef set<int>::iterator sit;
 const int MOD = 1000000007;
 const int OO = 0x3f3f3f;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
-
+ll n, aux, pws[10000000];
 int main(){
     std::ios::sync_with_stdio(false);
+    cin >> n;
+    f(n,i){
+        cin >> aux;
+        pws[aux]++;
+    }
+    ll ans = 0, carry = 0;
+    f(1000001, i){
+        carry += pws[i];
+        if(carry%2 == 1){
+            ans++;
+            carry--;
+        }
+        carry /= 2;
+    }
+    while(carry){
+        if(carry%2 == 1){
+            ans++;
+            carry--;
+        }
+        carry /= 2;
+    }
+    cout << ans << "\n";
 }
