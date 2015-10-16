@@ -25,7 +25,7 @@ typedef set<int>::iterator sit;
 const int MOD = 1000000007;
 const int OO = 0x3f3f3f;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
-vi graph[200007];
+si graph[200007];
 int vis[200007];
 map<int, int> comp;
 int cycles, kids;
@@ -33,14 +33,13 @@ int cycles, kids;
 void dfs(int node, int par){
     kids++;
     vis[node] = 1;
-    int aux = 0;
-    f(graph[node].size(), i){
-        if(graph[node][i] != par){
-            if(vis[graph[node][i]])
-                cycles = 1;
-            else
-                dfs(graph[node][i], node);
+    sit it = graph[node].begin();
+    while(it != graph[node].end()){
+        if(*it != par){
+            if(vis[*it]) cycles = 1;
+            else dfs(*it, node);
         }
+        it++;
     }
 }
 
@@ -62,16 +61,8 @@ int main(){
             int g, h;
             g = comp[a];
             h = comp[b];
-            graph[g].pb(h);
-            graph[h].pb(g);
-
-            sort(all(graph[g]));
-            vi::iterator it = unique(all(graph[g]));
-            graph[g].resize(distance(graph[g].begin(), it));
-
-            sort(all(graph[h]));
-            it = unique(all(graph[h]));
-            graph[h].resize(distance(graph[h].begin(), it));
+            graph[g].insert(h);
+            graph[h].insert(g);
 
             if(graph[h].size() > 2){
                 ok = 0;
@@ -87,16 +78,16 @@ int main(){
                 if(cycles) break;
             }
         }
-        else{
-            cout << "N\n";
-        }
         if(kids == k) every = 1;
-        f(x, i){
-            graph[i].clear();
-        }
+
         if(ok && cycles && every) cout << "Y\n";
         else if (ok && cycles) cout << "N\n";
         else if(ok) cout << "Y\n";
+        else cout << "N\n";
+
+        f(x, i){
+            graph[i].clear();
+        }
         comp.clear();
     }
 }
