@@ -31,7 +31,7 @@ int main(){
     ll n, ans = 1, div = 2;
     cin >> n;
     while(n != 1){
-        if(div*div > n && ans == 1){
+        if(div*div > n){
             ans *= n;
             break;
         }
