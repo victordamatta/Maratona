@@ -29,14 +29,16 @@ vi graph[507];
 int n, m, k;
 int age[507];
 int visited[507];
+int mini;
 
-int dfs(int v){
-    int mini = INT_MAX;
-    if(visited[v]) return mini;
+void dfs(int v, int org){
+    if(visited[v]) return;
+    visited[v] = 1;
+    if(v != org)
+        mini = min(mini, age[v]);
     f(graph[v].size(), i){
-        mini = min(min(mini, age[graph[v][i]]), dfs(graph[v][i]));
+        dfs(graph[v][i], org);
     }
-    return mini;
 }
 
 int main(){
@@ -54,27 +56,26 @@ int main(){
         f(k, i){
             char c;
             int a, b;
-            cin >> c;
+            cin >> c; 
             if(c == 'T'){
                 cin >> a >> b;
-
-                graph[b].swap(graph[a]);
-
+                graph[a].swap(graph[b]);
                 f(n, x){
-                    f(graph[x+1].size(), y){
-                        if(graph[x+1][y] == a) graph[x+1][y] = b;
-                        if(graph[x+1][y] == b) graph[x+1][y] = a;
+                    f(graph[x+1].size(), j){
+                        if(graph[x+1][j] == a) graph[x+1][j] = b;
+                        else if(graph[x+1][j] == b) graph[x+1][j] = a;
                     }
                 }
             }
             else{
                 cin >> a;
                 ms(visited, 0);
-                b = dfs(a);
-                if(b == INT_MAX)
+                mini = INT_MAX;
+                dfs(a, a);
+                if(mini == INT_MAX)
                     cout << "*\n";
                 else
-                    cout << b << "\n";
+                    cout << mini << "\n";
             }
         }
         f(n, i) graph[i+1].clear();
