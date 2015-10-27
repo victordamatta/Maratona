@@ -20,11 +20,13 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pi;
 typedef vector<int> vi;
+typedef vector<pair<int, int> > vpi;
 typedef set<int> si;
 typedef set<int>::iterator sit;
 const int MOD = 1000000007;
 const int OO = 0x3f3f3f;
 //REMEMBER TO DECLARE GLOBAL VARIABLES
+//REMEMBER LONG LONG INT
 
 int main(){
     std::ios::sync_with_stdio(false);
