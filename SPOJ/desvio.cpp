@@ -36,6 +36,9 @@ int main(){
     std::ios::sync_with_stdio(false);
     while(cin >> n >> m >> c >> k, n != 0){
         ms(vis, 0);
+        f(n, i){
+          dis[i] = INT_MAX;
+        }
         f(m, i){
             int x, y, z;
             cin >> x >> y >> z;

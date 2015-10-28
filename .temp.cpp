@@ -25,8 +25,8 @@ typedef set<int> si;
 typedef set<int>::iterator sit;
 const int MOD = 1000000007;
 const int OO = 0x3f3f3f;
-//REMEMBER TO DECLARE GLOBAL VARIABLES
 //REMEMBER LONG LONG INT
+//REMEMBER TO INITIALZE THINGS
 
 int main(){
     std::ios::sync_with_stdio(false);
