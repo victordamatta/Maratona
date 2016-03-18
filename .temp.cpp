@@ -24,7 +24,7 @@ typedef vector<pair<int, int> > vpi;
 typedef set<int> si;
 typedef set<int>::iterator sit;
 const int MOD = 1000000007;
-const int OO = 0x3f3f3f;
+const int OO = 1000000000;
 //REMEMBER LONG LONG INT
 //REMEMBER TO INITIALZE THINGS
 
