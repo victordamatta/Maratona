@@ -82,6 +82,7 @@ int main(){
     while (!q.empty ()) {
         rob r = q.front ();
         q.pop ();
+        if (!mat[r.x][r.y][r.dir]) continue;
         f (4, i) {
             if (r.x+tx[i] >= 0 && r.y+ty[i] >=0 && r.x+tx[i] < n && r.y+ty[i] < n) {
                 if (bfs[r.x+tx[i]][r.y+ty[i]][i] == 0) {
