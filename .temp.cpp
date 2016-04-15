@@ -9,7 +9,6 @@
 #include <string>
 #include <map>
 */
-#define all(x) x.begin(), x.end()
 #define pb push_back
 #define mp make_pair
 #define fst first
