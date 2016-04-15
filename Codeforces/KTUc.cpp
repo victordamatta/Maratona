@@ -37,14 +37,8 @@ struct rob {
 
 int mat[207][207][7];
 int bfs[207][207][7];
-int tx[] = {0, 1, 0, -1};
-int ty[] = {1, 0, -1, 0};
-
-int cost (int dir, int i) {
-    int x = (i - dir) % 4;
-    if (x >= 0) return x;
-    else return x+4;
-}
+int tx[] = {1, 0, -1, 0};
+int ty[] = {0, 1, 0, -1};
 
 int main(){
     std::ios::sync_with_stdio(false);
@@ -83,24 +77,17 @@ int main(){
         rob r = q.front ();
         q.pop ();
         if (!mat[r.x][r.y][r.dir]) continue;
-        f (4, i) {
-            if (r.x+tx[i] >= 0 && r.y+ty[i] >=0 && r.x+tx[i] < n && r.y+ty[i] < n) {
-                if (bfs[r.x+tx[i]][r.y+ty[i]][i] == 0) {
-                    bfs[r.x+tx[i]][r.y+ty[i]][i] = bfs[r.x][r.y][r.dir] + cost (r.dir, i) + 1;
-                    q.push (rob (r.x+tx[i], r.y+ty[i], i));
-                }
+        if (bfs[r.x][r.y][(r.dir+1)%4] == 0) {
+            bfs[r.x][r.y][(r.dir+1)%4] = bfs[r.x][r.y][r.dir] + 1;
+            q.push (rob (r.x, r.y, (r.dir+1)%4));
+        }
+        if (r.x+tx[r.dir] >= 0 && r.y+ty[r.dir] >=0 && r.x+tx[r.dir] < n && r.y+ty[r.dir] < n) {
+            if (bfs[r.x+tx[r.dir]][r.y+ty[r.dir]][r.dir] == 0) {
+                bfs[r.x+tx[r.dir]][r.y+ty[r.dir]][r.dir] = bfs[r.x][r.y][r.dir] + 1;
+                q.push (rob (r.x+tx[r.dir], r.y+ty[r.dir], r.dir));
             }
         }
     }
 
-    int mini = OO, mdir;
-    f(4, i) {
-        if (bfs[n-1][n-1][i] != 0) {
-            if (mini > bfs[n-1][n-1][i]) {
-                mini = bfs[n-1][n-1][i];
-                mdir = i;
-            }
-        }
-    }
-    cout << mini + cost (mdir, 0) << "\n";
+    cout << bfs[n-1][n-1][0] << "\n";
 }
