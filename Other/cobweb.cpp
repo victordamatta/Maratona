@@ -83,7 +83,7 @@ int main(){
         }
     }
     stack<int> s;
-    for (int i = 0; i < fe.size (); i++) {
+    for (int i = fe.size ()-1; i >= 0; i--) {
         s.push (comps);
         join (edges[fe[i]].fst, edges[fe[i]].scd);
     }
