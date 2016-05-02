@@ -28,45 +28,35 @@ const int OO = 1000000000;
 //REMEMBER LONG LONG INT
 //REMEMBER TO INITIALZE THINGS
 int fa[1000007], fb[1000007];
+int crivo[1000007];
 
 int main(){
     std::ios::sync_with_stdio(false);
     int a, b;
     int t = 1;
+    f(1000007, i) crivo[i] = i;
+    for (int i = 2; i <1000007; i++) {
+        if (crivo[i] != i) continue;
+        for (int j = i*i; j < 1000007; j += i) {
+            crivo[j] = j;
+        }
+    }
     while (cin >> a >> b, a != 0) {
         ms (fa, 0);
         ms (fb, 0);
-        int div = 2, m, hasdiv = 0;
         set<int> s;
-        while (a > 1 && (hasdiv == 1 || div*div <= a)) {
-            m = 0;
-            if (a%div==0) {
-                s.insert (div);
-                hasdiv = 1;
-            }
-            while (a % div == 0) {
-                a /= div;
-                m++;
-            }
-            fa[div] = m;
-            div++;
+        while (a > 1) {
+            s.insert (crivo[a]);
+            fa[crivo[a]]++;
+            a /= crivo[a];
         }
-        div = 2, hasdiv = 0;
-        while (b > 1 && (hasdiv == 1 || div*div <= b)) {
-            m = 0;
-            if (b%div==0) {
-                s.insert (div);
-                hasdiv = 1;
-            }
-            while (b % div == 0) {
-                b /= div;
-                m++;
-            }
-            fb[div] = m;
-            div++;
+        while (b > 1) {
+            s.insert (crivo[b]);
+            fb[crivo[b]]++;
+            b /= crivo[b];
         }
         int dif = 0;
-        for (int i = 0; i < 1000007; i++) {
+        for (int i = 0; i < 1000005; i++) {
             dif += abs (fa[i] - fb[i]);
         }
         cout << t << ". " << s.size () << ":" << dif << endl;
