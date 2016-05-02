@@ -48,6 +48,7 @@ int main(){
             int v = q.front ();
             q.pop ();
             for (int u: graph[v]) {
+                if(v == u) continue;
                 if (dist[i][u] == 0) {
                     dist[i][u] = dist[i][v] + 1;
                     q.push (u);
@@ -63,29 +64,37 @@ int main(){
 
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
-            if (dist[i][j] > dist[i][aft[i][0]]) {
-                aft[i][2] = aft[i][1];
-                aft[i][1] = aft[i][0];
+            if (!dist[i][j]) continue;
+            int f = aft[i][0], s = aft[i][1], t = aft[i][2];
+            if (dist[i][j] >= dist[i][f]) {
+                aft[i][2] = s;
+                aft[i][1] = f;
                 aft[i][0] = j;
             }
-            else if (dist[i][j] > dist[i][aft[i][1]]) {
-                aft[i][2] = aft[i][1];
+            else if (dist[i][j] >= dist[i][s]) {
+                aft[i][2] = s;
                 aft[i][1] = j;
             }
-            else if (dist[i][j] > dist[i][aft[i][2]]) {
+            else if (dist[i][j] >= dist[i][t]) {
                 aft[i][2] = j;
             }
-            if (dist[i][j] > dist[bef[j][0]][j]) {
-                bef[j][2] = bef[j][1];
-                bef[j][1] = bef[j][0];
-                bef[j][0] = i;
+        }
+    }
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (!dist[j][i]) continue;
+            int f = bef[i][0], s = bef[i][1], t = bef[i][2];
+            if (dist[j][i] >= dist[f][i]) {
+                bef[i][2] = s;
+                bef[i][1] = f;
+                bef[i][0] = j;
             }
-            else if (dist[i][j] > dist[bef[j][1]][j]) {
-                bef[j][2] = bef[j][1];
-                bef[j][1] = i;
+            else if (dist[j][i] >= dist[s][i]) {
+                bef[i][2] = s;
+                bef[i][1] = j;
             }
-            else if (dist[i][j] > dist[bef[j][2]][j]) {
-                bef[j][2] = i;
+            else if (dist[j][i] >= dist[t][i]) {
+                bef[i][2] = j;
             }
         }
     }
