@@ -1,4 +1,3 @@
-//CHECAR CASO a = b = 1
 #include <bits/stdc++.h>
 /*
 #include <iostream>
@@ -14,37 +13,43 @@
 #define mp make_pair
 #define fst first
 #define scd second
-#define f(x, let) for(int let=0; let<x; let++)
+#define f(x, let) for(ll let=0; let<x; let++)
 #define ms(x, v) memset(x, v, sizeof x)
 using namespace std;
 typedef long long ll;
-typedef pair<int, int> pi;
-typedef vector<int> vi;
-typedef vector<pair<int, int> > vpi;
-typedef set<int> si;
-typedef set<int>::iterator sit;
-const int MOD = 1000000007;
-const int OO = 1000000000;
-//REMEMBER LONG LONG INT
+typedef pair<ll, ll> pi;
+typedef vector<ll> vi;
+typedef vector<pair<ll, ll> > vpi;
+typedef set<ll> si;
+typedef set<ll>::iterator sit;
+const ll MOD = 1000000007;
+const ll OO = 1000000000;
+//REMEMBER LONG LONG ll
 //REMEMBER TO INITIALZE THINGS
-int fa[1000007], fb[1000007];
-int crivo[1000007];
+#define MAX 1000007ll
+ll fa[MAX], fb[MAX];
+ll crivo[MAX];
 
 int main(){
     std::ios::sync_with_stdio(false);
-    int a, b;
-    int t = 1;
-    f(1000007, i) crivo[i] = i;
-    for (int i = 2; i <1000007; i++) {
+    ll a, b;
+    ll t = 1;
+    f(MAX, i) crivo[i] = i;
+    for (ll i = 2; i < MAX; i++) {
         if (crivo[i] != i) continue;
-        for (int j = i*i; j < 1000007; j += i) {
-            crivo[j] = j;
+        for (ll j = i*i; j < MAX; j += i) {
+            crivo[j] = i;
         }
     }
     while (cin >> a >> b, a != 0) {
+        if (a == 1 && b == 1) {
+            cout << t << ". " << 1 << ":" << 0 << endl;
+            t++;
+            continue;
+        }
         ms (fa, 0);
         ms (fb, 0);
-        set<int> s;
+        set<ll> s;
         while (a > 1) {
             s.insert (crivo[a]);
             fa[crivo[a]]++;
@@ -55,9 +60,12 @@ int main(){
             fb[crivo[b]]++;
             b /= crivo[b];
         }
-        int dif = 0;
-        for (int i = 0; i < 1000005; i++) {
+        ll dif = 0;
+        for (ll i = 0; i < 1000005; i++) {
             dif += abs (fa[i] - fb[i]);
+            /* if (fa[i] != 0 || fb[i] != 0) { */
+            /*     cout << i << endl; */
+            /* } */
         }
         cout << t << ". " << s.size () << ":" << dif << endl;
         t++;

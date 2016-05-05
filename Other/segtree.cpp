@@ -13,7 +13,7 @@ void insert(int node, int ini, int fim, int ind, int value){
 		insert(2*node, ini, mid, ind, value);
 	else if(ind>mid)
 		insert(2*node+1, mid+1, fim, ind, value);
-	
+
 	tree[node] = min(tree[2*node], tree[2*node+1]);
 }
 
@@ -34,7 +34,7 @@ int main(){
 			scanf("%d", &aux);
 			insert(1, 0, n-1, i, aux);
 		}
-		
+
 		while(q--){
 			scanf("%d%d", &a, &b);
 			a--;
