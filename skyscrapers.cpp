@@ -26,12 +26,20 @@ const int MOD = 1000000007;
 const int OO = 1000000000;
 //REMEMBER LONG LONG INT
 //REMEMBER TO INITIALZE THINGS
+struct build {
+    int h;
+    int i;
+}
+
 int n, d, m;
 int comp[1000007];
 int sz[1000007];
-int hs[1000007];
 int ds[1000007];
 int ans[1000007];
+build bs[1000007];
+bool comp (build a, build b) {
+    return a.h < b.h;
+}
 
 int find (int a) {
     if (comp[a] != a) comp[a] = find (comp[a]);
@@ -61,48 +69,31 @@ int main(){
     while (t--) {
         cin >> n >> d;
         m = n;
-        map<int, vi> htoi;
+        int x = n;
         f (n, i) {
             comp[i] = i;
             sz[i] = 1;
         }
         f (n, i) {
-            cin >> hs[i];
-            htoi[hs[i]].pb (i);
+            int aux;
+            cin >> aux;
+            bs[i].h = aux;
+            bs[i].i = i;
         }
+        sort (bs, bs+n, comp);
         f (d, i) {
             cin >> ds[i];
         }
-        for (int i = 1; i < n; i++) {
-            if (hs[i-1] > ds[d-1] && hs[i] > ds[d-1]) {
+        for (int i = n-1; i >= 0; i--) {
+            if (bs[i-1].h > ds[d-1] && bs[i].h > ds[d-1]) {
                 join (i, i-1);
             }
-            if (hs[i+1] > ds[d-1] && hs[i] > ds[d-1]) {
+            if (bs[i+1].h > ds[d-1] && bs[i].h > ds[d-1]) {
                 join (i, i+1);
             }
         }
         ans[d-1] = m;
         for (int i = d-2; i >= 0; i--) {
-            //NEVER JOINS ANYTHING - HS[B] = DS[I], IF CHECKS IF >
-            /*
-            for (int b: htoi[ds[i]]) {
-                if (hs[b-1] > ds[i] && hs[b] > ds[i]) {
-                    join (b, b-1);
-                }
-                if (hs[b+1] > ds[i] && hs[b] > ds[i]) {
-                    join (b, b+1);
-                }
-            }
-            */
-            //Even this is wrong
-            f (n, j) {
-                if (hs[j-1] > ds[i] && hs[j] > ds[i]) {
-                    join (j, j-1);
-                }
-                if (hs[j+1] > ds[i] && hs[j] > ds[i]) {
-                    join (j, j+1);
-                }
-            }
             ans[i] = m;
         }
         f (d, i) cout << ans[i] << " ";
