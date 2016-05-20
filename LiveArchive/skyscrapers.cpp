@@ -29,37 +29,14 @@ const int OO = 1000000000;
 struct build {
     int h;
     int i;
-}
+};
 
 int n, d, m;
-int comp[1000007];
-int sz[1000007];
 int ds[1000007];
 int ans[1000007];
 build bs[1000007];
-bool comp (build a, build b) {
+bool cmp (build a, build b) {
     return a.h < b.h;
-}
-
-int find (int a) {
-    if (comp[a] != a) comp[a] = find (comp[a]);
-    return comp[a];
-}
-
-void join (int a, int b) {
-    int pa = comp[a], pb = comp[b];
-    if (pa == pb) return;
-    m--;
-    if (sz[pa] < sz[pb]) {
-        comp[pa] = comp[pb];
-    }
-    else if (sz[pa] > sz[pb]) {
-        comp[pb] = comp[pa];
-    }
-    else {
-        comp[pa] = comp[pb];
-        sz[pb]++;
-    }
 }
 
 int main(){
@@ -68,35 +45,34 @@ int main(){
     cin >> t;
     while (t--) {
         cin >> n >> d;
-        m = n;
-        int x = n;
-        f (n, i) {
-            comp[i] = i;
-            sz[i] = 1;
-        }
         f (n, i) {
             int aux;
             cin >> aux;
             bs[i].h = aux;
             bs[i].i = i;
         }
-        sort (bs, bs+n, comp);
+        sort (bs, bs+n, cmp);
         f (d, i) {
             cin >> ds[i];
         }
-        for (int i = n-1; i >= 0; i--) {
-            if (bs[i-1].h > ds[d-1] && bs[i].h > ds[d-1]) {
-                join (i, i-1);
+        int i = n - 1;
+        int ansi = 0;
+        set<int> s;
+        for (int j = d-1; j >= 0; j--) {
+            while (bs[i].h > ds[j]) {
+                if (s.find (bs[i].i + 1) == s.end () && s.find (bs[i].i - 1) == s.end()) {
+                    ansi++;
+                }
+                else if (s.find (bs[i].i + 1) != s.end () && s.find (bs[i].i - 1) != s.end()) {
+                    ansi--;
+                }
+                s.insert (bs[i].i);
+                i--;
             }
-            if (bs[i+1].h > ds[d-1] && bs[i].h > ds[d-1]) {
-                join (i, i+1);
-            }
+            ans[j] = ansi;
         }
-        ans[d-1] = m;
-        for (int i = d-2; i >= 0; i--) {
-            ans[i] = m;
-        }
-        f (d, i) cout << ans[i] << " ";
+        cout << ans[0];
+        f (d-1, i) cout << " " << ans[i+1];
         cout << endl;
     }
 }

@@ -29,14 +29,5 @@ const int OO = 1000000000;
 
 int main(){
     std::ios::sync_with_stdio(false);
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    set<char> sc;
-    for (int i = 0; i < n; i++) {
-        sc.insert (s[i]);
-    }
-    if (sc.size () == 26 && n > 26) cout << -1 << endl;
-    else cout << n - sc.size () << endl;
+    //Máximo de 8 chars em uma palavra
 }
