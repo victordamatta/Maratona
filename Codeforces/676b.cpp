@@ -47,8 +47,10 @@ int main(){
             }
         }
     }
-    for (int i = 0; i < 500; i++) {
-        if (abs (glass[i]-1) < 0.0000001) ans++;
+    for (int i = 1; i <= n; i++) {
+        for (int k = 0; k < i; k++) {
+            if (abs (glass[index[i]+ k] - 1) < 0.0000001) ans++;
+        }
     }
     cout << ans << endl;
 }
