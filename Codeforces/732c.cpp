@@ -23,27 +23,32 @@ typedef vector<pair<int, int> > vpi;
 typedef set<int> si;
 typedef set<int>::iterator sit;
 const int MOD = 1000000007;
-const int OO = 1000000001;
+const int OO = 1000000000;
 //REMEMBER LONG LONG INT
 //REMEMBER TO INITIALZE THINGS
-int vet[100007];
 
 int main(){
     std::ios::sync_with_stdio(false);
-    int n;
-    cin >> n;
-    set<int> s;
-    f (n, i) {
-        cin >> vet[i];
-        s.insert (vet[i]);
+    ll b, d, s;
+    cin >> b >> d >> s;
+    ll mini = min (b, min (d, s)) / 3;
+    b -= mini * 3;
+    d -= mini * 3;
+    s -= mini * 3;
+
+    ll maxi = max (b, max (d, s));
+    ll ans;
+    ans = (maxi - b) + (maxi - d) + (maxi - s);
+    if (maxi == b && maxi == d) {
+        ans--;
     }
-    if (s.size () > 3) cout << "NO\n";
-    else if (s.size () == 3) {
-        vi v;
-        for (int x: s) v.pb (x);
-        int dif1 = v[1] - v[0], dif2 = v[2] - v[1]; 
-        if (abs (dif1) == abs (dif2)) cout << "YES\n";
-        else cout << "NO\n";
+    else if (maxi == b && maxi == s) {
+        ans--;
     }
-    else cout << "YES\n";
+    else if (maxi == d && maxi == s) {
+        ans--;
+    }
+    else ans -= 2;
+    ans = max (ans, 0ll);
+    cout << ans << endl;
 }

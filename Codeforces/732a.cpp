@@ -29,13 +29,13 @@ const int OO = 1000000000;
 
 int main(){
     std::ios::sync_with_stdio(false);
-    ll l1, r1, l2, r2, k;
-    cin >> l1 >> r1 >> l2 >> r2 >> k;
-    if (l2 > r1 || l1 > r2) cout << 0 << endl;
-    else {
-        ll l = max (l1, l2);
-        ll r = min (r1, r2);
-        if (k >= l && k <= r) l++;
-        cout << r - l + 1 << endl;
+    int ok, r;
+    cin >> ok >> r;
+    int k = ok;
+    int ans = 1;
+    while (k % 10 != 0 && k % 10 != r) {
+        k += ok;
+        ans++;
     }
+    cout << ans << endl;
 }

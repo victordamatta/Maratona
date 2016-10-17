@@ -27,33 +27,24 @@ const int OO = 1000000000;
 //REMEMBER LONG LONG INT
 //REMEMBER TO INITIALZE THINGS
 
-ll ntop (ll x) {
-    ll pat = 0;
-    ll multi = 1;
-    while (x > 0) {
-        if ((x%10)%2 == 0) pat += 0;
-        else pat += multi;
-        multi *= 10;
-        x /= 10;
-    }
-    return pat;
-}
-
 int main(){
     std::ios::sync_with_stdio(false);
-    int t;
-    cin >> t;
-    map<ll, ll> ans;
-    f (t, i) {
-        char c;
-        ll aux;
-        cin >> c;
-        cin >> aux;
-        if (c == '+')
-            ans[ntop (aux)]++;
-        else if (c == '-')
-            ans[ntop (aux)]--;
-        else
-            cout << ans[ntop (aux)] << endl;
+    int n, k;
+    cin >> n >> k;
+    int pd, d;
+    int ans = 0;
+    vi vans;
+    cin >> pd;
+    vans.pb (pd);
+    f (n-1, i) {
+        cin >> d;
+        int change = max (k - d - pd, 0);
+        ans += change;
+        d += change;
+        vans.pb (d);
+        pd = d;
     }
+    cout << ans << endl;
+    for (int i = 0; i <vans.size (); i++) cout << vans[i] << " ";
+    cout << endl;
 }
