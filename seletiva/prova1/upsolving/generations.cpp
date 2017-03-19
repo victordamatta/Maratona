@@ -33,10 +33,11 @@ int prof[70007];
 int birth[70007];
 int death[70007];
 
-int index[70007];
+int idex[70007];
 int inter[70007];
 
 int seg[140007];
+int ans[70007];
 
 void update (int n, int l, int r, int nn) {
     int mid = (l + r)/2;
@@ -50,20 +51,20 @@ void update (int n, int l, int r, int nn) {
     seg[n] = max (seg[2*n], seg[2*n + 1]);
 }
 
-void query (int n, int l, int r, int dl, int dr) {
+int query (int n, int l, int r, int dl, int dr) {
 	if(l>=dl && r<=dr) return seg[n];
-	if(r<ini || l>fim) return INT_MAX;
-	int mid = ini + (fim-ini)/2;
-	return min(tmin(2*node, ini, mid, l, r), tmin(2*node+1, mid+1, fim, l, r));
+	if(dr<l || dl>r) return -1;
+	int mid = l + (r-l)/2;
+	return max(query(2*n, l, mid, dl, dr), query(2*n+1, mid+1, r, dl, dr));
 }
 
 void dfs (int v) {
-    index[v] = ord++;
+    idex[v] = ord++;
     for (int u : graph[v]) {
-        prof[u] = prof[v+1];
+        prof[u] = prof[v] + 1;
         dfs (u);
     }
-    inter[v] = ord;
+    inter[v] = ord-1;
 }
 
 struct event {
@@ -73,9 +74,12 @@ struct event {
 
     event (int type, int date, int who) : type(type), date(date), who(who) {
     }
-}
+};
 
 bool comp (event a, event b) {
+    if (a.date == b.date) {
+        return a.type > b.type;
+    }
     return a.date < b.date;
 }
 
@@ -85,16 +89,25 @@ int main(){
     cin >> t;
     while (t--) {
         cin >> n;
+        for (int i = 1; i <= n; i++) graph[i].clear();
         ms (prof, 0);
         ms (seg, -1);
         for (int i = 1; i <= n; i++) {
             int p;
             cin >> p >> birth[i] >> death[i];
             if (p != -1)
-                graph[p].pb(i);
+                graph[p+1].pb(i);
         }
-        ord = 0;
-        dfs (0);
+        ord = 1;
+        dfs (1);
+
+        for (int i = 0; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (prof[j] == i) cout << idex[j] << " " << "(" << inter[j] << ")" << " ";
+            }
+            cout << endl;
+        }
+        cout << endl;
 
         vector<event> queue;
         for (int i = 1; i <= n; i++) {
@@ -102,5 +115,21 @@ int main(){
             queue.pb (event (-1, death[i], i));
         }
         sort (queue.begin (), queue.end (), comp);
+
+        for (int i = 0; i < queue.size (); i++) {
+            cout << queue[i].date << " " << queue[i].type << " " << queue[i].who << endl;
+            int who = queue[i].who;
+            if (queue[i].type == -1) {
+                cout << idex[who] <<  " " << inter[who] << endl;
+                ans[who] = query (1, 1, n, idex[who], inter[who]);
+            }
+            else {
+                update (1, 1, n, idex[who]);
+            }
+        }
+
+        cout << ans[1];
+        for (int i = 2; i <= n; i++) cout << " " << ans[i];
+        cout << endl;
     }
 }
