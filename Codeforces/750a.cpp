@@ -1,4 +1,14 @@
 #include <bits/stdc++.h>
+/*
+#include <iostream>
+#include <cstring>
+#include <climits>
+#include <algorithm>
+#include <vector>
+#include <set>
+#include <string>
+#include <map>
+*/
 #define pb push_back
 #define mp make_pair
 #define fst first
@@ -19,4 +29,14 @@ const int OO = 1000000000;
 
 int main(){
     std::ios::sync_with_stdio(false);
+    int n, k;
+    cin >> n >> k;
+    int time = 240 - k;
+    int i = 1;
+    while (i <= n && time - 5*i >= 0) {
+        time -= 5*i;
+        i++;
+    }
+    i--;
+    cout << i << endl;
 }
