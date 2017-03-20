@@ -36,17 +36,17 @@ int death[70007];
 int idex[70007];
 int inter[70007];
 
-int seg[140007];
+int seg[300007];
 int ans[70007];
 
-void update (int n, int l, int r, int nn) {
+void update (int n, int l, int r, int nn, int value) {
     int mid = (l + r)/2;
     if (l == r) {
-        seg[n] = prof[n];
+        seg[n] = value;
         return;
     }
-    if (nn <= mid) update (2*n, l, mid, nn);
-    else update (2*n + 1, mid+1, r, nn);
+    if (nn <= mid) update (2*n, l, mid, nn, value);
+    else update (2*n + 1, mid+1, r, nn, value);
 
     seg[n] = max (seg[2*n], seg[2*n + 1]);
 }
@@ -72,7 +72,7 @@ struct event {
     int date;
     int who;
 
-    event (int type, int date, int who) : type(type), date(date), who(who) {
+    event (int t, int d, int w) : type(t), date(d), who(w) {
     }
 };
 
@@ -101,6 +101,7 @@ int main(){
         ord = 1;
         dfs (1);
 
+        /*
         for (int i = 0; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
                 if (prof[j] == i) cout << idex[j] << " " << "(" << inter[j] << ")" << " ";
@@ -108,6 +109,7 @@ int main(){
             cout << endl;
         }
         cout << endl;
+        */
 
         vector<event> queue;
         for (int i = 1; i <= n; i++) {
@@ -116,15 +118,18 @@ int main(){
         }
         sort (queue.begin (), queue.end (), comp);
 
+        /* f(4*n, i) cout << seg[i] << " "; */
+        /* cout << endl; */
         for (int i = 0; i < queue.size (); i++) {
-            cout << queue[i].date << " " << queue[i].type << " " << queue[i].who << endl;
+            /* cout << queue[i].date << " " << queue[i].type << " " << queue[i].who << endl; */
             int who = queue[i].who;
             if (queue[i].type == -1) {
-                cout << idex[who] <<  " " << inter[who] << endl;
-                ans[who] = query (1, 1, n, idex[who], inter[who]);
+                ans[who] = query (1, 1, n, idex[who], inter[who]) - prof[who];
             }
             else {
-                update (1, 1, n, idex[who]);
+                update (1, 1, n, idex[who], prof[who]);
+                /* f(4*n, i) cout << seg[i] << " "; */
+                /* cout << endl; */
             }
         }
 
