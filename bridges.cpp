@@ -79,9 +79,9 @@ int main() {
             }
         }
 
-        f (v-1, i) {
-            f (v-1, j) {
-                f (v-1, k) {
+        f (v-1, k) {
+            f (v-1, i) {
+                f (v-1, j) {
                     if (dist[i][j] > dist[i][k] + dist[k][j])
                         dist[i][j] = dist[i][k] + dist[k][j];
                 }
