@@ -27,9 +27,9 @@ vpi graph[300];
 
 int main() {
     std::ios::sync_with_stdio(false);
-    int t;
-    cin >> t;
-    while (t--) {
+    int T;
+    cin >> T;
+    while (T--) {
         cin >> n >> f >> m;
         f (n, i) graph[i].clear ();
         mm.clear ();
@@ -92,7 +92,7 @@ int main() {
         }
 
         cin >> q;
-        f (q, i) {
+        for (int i = 0; i < q; i++) {
             cin >> qbi >> qfi >> qbj >> qfj;
             int ui = OO, uci, uj = OO, ucj, di = -1, dci, dj = -1, dcj;
             f (v, j) {
