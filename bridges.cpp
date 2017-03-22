@@ -95,7 +95,8 @@ int main() {
         for (int i = 0; i < q; i++) {
             cin >> qbi >> qfi >> qbj >> qfj;
             int ui = OO, uci, uj = OO, ucj, di = -1, dci, dj = -1, dcj;
-            f (v, j) {
+            for (int j = 0; j < v; j++) {
+                //cout << vertex[j].fst << ' ' << vertex[j].scd << endl;
                 if (vertex[j].fst == qbi) {
                     if (vertex[j].scd > qfi && vertex[j].scd < ui) {
                         ui = vertex[j].scd;
@@ -117,6 +118,7 @@ int main() {
                     }
                 }
             }
+            cout << ui << ' ' << uci << ' ' << di << ' ' << dci << endl;
             int ans = OO;
             ans = min (ans, uci + dist[mm[mp (qbi, ui)]][mm[mp(qbj, uj)]] + ucj);
             ans = min (ans, uci + dist[mm[mp (qbi, ui)]][mm[mp(qbj, dj)]] + dcj);
