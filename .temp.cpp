@@ -1,14 +1,4 @@
 #include <bits/stdc++.h>
-/*
-#include <iostream>
-#include <cstring>
-#include <climits>
-#include <algorithm>
-#include <vector>
-#include <set>
-#include <string>
-#include <map>
-*/
 #define pb push_back
 #define mp make_pair
 #define fst first
