@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define fst first
 #define snd second
@@ -15,4 +16,15 @@ inline ll mod(ll x) { return x % MOD; }
 
 int main(){
     std::ios::sync_with_stdio(false);
+    set<int> s;
+    int n;
+    cin >> n;
+    while(n--) {
+        int x;
+        cin >> x;
+        if (x > 0)
+            s.insert(x);
+    }
+    cout << s.size() << endl;
 }
+

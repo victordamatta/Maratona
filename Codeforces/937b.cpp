@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define fst first
 #define snd second
@@ -13,6 +14,22 @@ const ll MOD = 1000000007;
 const int OO = INT_MAX;
 inline ll mod(ll x) { return x % MOD; }
 
+ll small_divisor(ll x) {
+    ll d = 2;
+    while (d * d <= x) {
+        if (x % d == 0) return d;
+        d++;
+    }
+    return x;
+}
+
 int main(){
     std::ios::sync_with_stdio(false);
+    ll p, y;
+    cin >> p >> y;
+    while (small_divisor(y) <= p && y > p) y--;
+    if (y == p)
+        cout << -1 << endl;
+    else
+        cout << y << endl;
 }
