@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define fst first
 #define snd second
@@ -15,4 +16,14 @@ inline int mod(int x) { return x % MOD; }
 
 int32_t main(){
     std::ios::sync_with_stdio(false);
+    string s;
+    cin >> s;
+    int links = 0;
+    int pearls = 0;
+    for (char c : s) {
+        if(c == '-') links++;
+        else pearls++;
+    }
+    if(pearls == 0 || links % pearls == 0) cout << "YES\n";
+    else cout << "NO\n";
 }
